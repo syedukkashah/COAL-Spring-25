@@ -7,7 +7,7 @@ include irvine32.inc
 
 .code
 main proc
-	movsx eax, varB
+	movzx eax, varB
 	movsx ebx, varW
 	mov ecx, varD
 	call DumpRegs
