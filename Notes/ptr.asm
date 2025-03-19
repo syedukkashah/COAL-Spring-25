@@ -17,7 +17,7 @@ include Irvine32.inc
 	call DumpRegs
 	mov word ptr double2, 6666h 
 	mov word ptr double2+2, 3333h
-	mov eax, double2
+	mov eax, double2 ; 33336666 hex stored
 	call crlf
 	call DumpRegs
 	call crlf
