@@ -6,3 +6,6 @@
 
 ### Q4(ii)
 ![image](https://github.com/user-attachments/assets/cec7400d-6853-491a-83dc-e4bcda48dffe)
+
+### Q6
+![image](https://github.com/user-attachments/assets/c9cfa8ac-297c-4919-b214-579b51a9382a)
