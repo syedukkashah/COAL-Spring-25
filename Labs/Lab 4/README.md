@@ -12,3 +12,6 @@
 
 ### Q7
 ![image](https://github.com/user-attachments/assets/064e110a-fb32-4bef-8c11-d8d85fbf7430)
+
+### Q8
+![image](https://github.com/user-attachments/assets/3365bee2-d8b8-4d15-9b9b-1437d068e10c)
