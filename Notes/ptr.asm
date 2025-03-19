@@ -11,7 +11,7 @@ include Irvine32.inc
 	call DumpRegs
 	call crlf
 
-	; modifying prt of a larger data type
+	; modifying part of a larger data type
 	mov eax, double2
 	mov edx, 0
 	call DumpRegs
