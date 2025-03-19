@@ -21,8 +21,16 @@ include Irvine32.inc
 	mov ax, LENGTHOF val2 ; AX = 3
 	mov ax, LENGTHOF array ; AX = 11
 	mov ax, LENGTHOF array2 ; AX = 15
-	mov ax, LENGTHOF msg; AX=15
-	exit
+	mov ax, LENGTHOF msg ; AX=15
+	
+	; sizeof return num of bytes array takes up (lengthof * type)
+	mov ecx, 0
+	mov cx, type val2 ; cx = 2
+	mov edx, sizeof val2 ; edx = 6
+	mov edx, 0 ; edx = 0
+	movzx edx, cx ; edx = 2
+	imul edx, lengthof val2  ; edx=2*3(proving sizeof=lengthof*type)
+	exit 
 
 main endp
 end main
