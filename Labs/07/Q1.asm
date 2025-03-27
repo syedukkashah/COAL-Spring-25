@@ -8,52 +8,52 @@ INCLUDE Irvine32.inc
 
 .code
 main:
-    ; Initialize stack
-    lea eax, sourceArray   ; Load the address of sourceArray into eax
+    ; Init stack
+    lea eax, sourceArray   
 
-    ; Display message "Source Array"
+   
     mov edx, OFFSET msg1
     call WriteString
 
-    ; Print the source array
+   
     call PrintArray
 
-    ; Push elements from sourceArray onto the stack
-    mov ecx, 10            ; Loop counter (for 10 elements)
+    
+    mov ecx, 10            
 push_loop:
-    mov eax, [eax]         ; Load the current element from sourceArray into eax
-    push eax               ; Push the element onto the stack
-    add eax, 4             ; Move to the next element in the sourceArray
-    loop push_loop         ; Repeat until all elements are pushed onto the stack
+    mov eax, [eax]         
+    push eax               
+    add eax, 4             
+    loop push_loop         
 
     ; Display message "Destination Array"
     mov edx, OFFSET msg2
     call WriteString
 
-    ; Pop elements from the stack into destinationArray
-    lea eax, destinationArray ; Load address of destinationArray into eax
-    mov ecx, 10            ; Loop counter (for 10 elements)
+   
+    lea eax, destinationArray 
+    mov ecx, 10           
 pop_loop:
-    pop eax                ; Pop an element from the stack into eax
-    mov [eax], eax         ; Store the popped value into destinationArray
-    add eax, 4             ; Move to the next location in destinationArray
-    loop pop_loop          ; Repeat until all elements are popped into destinationArray
+    pop eax                
+    mov [eax], eax         
+    add eax, 4            
+    loop pop_loop          
 
-    ; Display the destination array
+    
     call PrintArray
 
-    ; Exit the program
+   
     exit
 
 PrintArray PROC
-    ; Display elements of destination array
+   
     lea eax, destinationArray
     mov ecx, 10
 print_loop:
     mov edx, [eax]
-    call WriteInt          ; Print the current number
-    call Crlf              ; New line after each number
-    add eax, 4             ; Move to the next element in the array
+    call WriteInt          
+    call Crlf            
+    add eax, 4            
     loop print_loop
     ret
 PrintArray ENDP
