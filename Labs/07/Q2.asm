@@ -8,39 +8,39 @@ INCLUDE Irvine32.inc
 
 .code
 main:
-    ; Prompt for and read the first integer
+   
     mov edx, OFFSET prompt1
     call WriteString
     call ReadInt
-    push eax          ; Push the first integer onto the stack
+    push eax         
 
-    ; Prompt for and read the second integer
+    
     mov edx, OFFSET prompt2
     call WriteString
     call ReadInt
-    push eax          ; Push the second integer onto the stack
+    push eax        
 
-    ; Prompt for and read the third integer
+   
     mov edx, OFFSET prompt3
     call WriteString
     call ReadInt
-    push eax          ; Push the third integer onto the stack
+    push eax         
 
-    ; Pop the integers off the stack and add them
-    pop eax           ; Pop the third integer into eax
-    mov ebx, eax      ; Store it in ebx temporarily
+    
+    pop eax           
+    mov ebx, eax      
 
-    pop eax           ; Pop the second integer into eax
-    add eax, ebx      ; Add the second and third integers
+    pop eax          
+    add eax, ebx      
 
-    pop ebx           ; Pop the first integer into ebx
-    add eax, ebx      ; Add the first integer to the sum
+    pop ebx           
+    add eax, ebx      
 
-    ; Display the result
+    
     mov edx, OFFSET resultMsg
     call WriteString
-    call WriteInt     ; Display the sum in eax
+    call WriteInt     
 
-    ; Exit the program
+    
     exit
 end main
