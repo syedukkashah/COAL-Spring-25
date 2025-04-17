@@ -1,3 +1,5 @@
+; if declared array was of type word/dword the sorted array would also be of the same size. The reg vals would then be stored in the 
+; relevant extended registers (eax, rax)   
 include Irvine32.inc
 .data
 	arr byte 61, 43, 11, 52, 25
