@@ -1,50 +1,48 @@
 include Irvine32.inc
-
 .data
 	arr byte 61, 43, 11, 52, 25
-	my_arr byte lengthof arr DUP(?)
+	sorted_arr byte 5 dup(?) 
+	msg byte "sorted array: ", 0
 .code
 	main proc
-	mov al, arr[0]
-	mov my_arr[0], al
+	;moving arr vals into regs
+	mov esi, 0
 
-	mov al, arr[3]
-	mov my_arr[1], al
+	mov al, arr[esi]
+	add esi, type arr
+	mov bl, arr[esi]
+	add esi, type arr
+	mov cl, arr[esi]
+	add esi, type arr
+	mov dl, arr[esi]
+	add esi, type arr
+	mov ah, arr[esi]
 
-	mov al, arr[1]
-	mov my_arr[2], al
+	mov esi, 0
 
-	mov al, arr[4]
-	mov my_arr[3], al
+	mov sorted_arr[esi], cl
+	add esi, type arr
+	mov sorted_arr[esi], ah
+	add esi, type arr
+	mov sorted_arr[esi], bl
+	add esi, type arr
+	mov sorted_arr[esi], dl
+	add esi, type arr
+	mov sorted_arr[esi], al
+	
+	mov esi, 0
+	mov ecx, lengthof sorted_arr
 
-	mov al, arr[2]
-	mov my_arr[4], al
-
-	mov esi, offset my_arr
-	movzx eax, byte ptr [esi]
-	call WriteDec
-	call crlf
-	inc esi
-
-	movzx eax, byte ptr [esi]
-	call WriteDec
-	call crlf
-	inc esi
-
-	movzx eax, byte ptr [esi]
-	call WriteDec
-	call crlf
-	inc esi
-
-	movzx eax, byte ptr [esi]
-	call WriteDec
-	call crlf
-	inc esi
-
-	movzx eax, byte ptr [esi]
-	call WriteDec
-	call crlf
-	exit 
-
+	mov edx, offset msg
+	call WriteString
+	call Crlf
+	print:
+		movzx eax, sorted_arr[esi]
+		add esi, type sorted_arr
+		call WriteDec
+		call Crlf
+		loop print
+		
+	exit
 main endp
 end main
