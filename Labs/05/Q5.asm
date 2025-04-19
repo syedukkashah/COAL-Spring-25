@@ -1,3 +1,4 @@
+; subtracting array from right to left
 include Irvine32.inc
 .data
 	array1 BYTE 10, 20, 30, 40
