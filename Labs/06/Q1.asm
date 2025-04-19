@@ -1,6 +1,6 @@
 Include Irvine32.inc
 .data
-	text byte "fibonacci sequence (up to 9th term)", 0
+	text byte "fibonacci sequence (up to 10th term)", 0
 	temp dword ?
 .code
 	main proc
