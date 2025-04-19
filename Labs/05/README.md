@@ -6,3 +6,8 @@
 
 ### Q3
 ![image](https://github.com/user-attachments/assets/71c45fa0-bd04-4ae1-9b9b-511013f3c331)
+
+### Q4
+![image](https://github.com/user-attachments/assets/fbba94f7-698e-4327-baab-b1b186649d3c)
+
+### Q5
