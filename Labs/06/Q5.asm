@@ -5,7 +5,7 @@ Include irvine32.inc
 	arr2 word lengthof arr1 dup(?)
 .code
 	main proc
-	mov esi, offset arr1 + (lengthof arr1* type arr1) - type arr1
+	mov esi, offset arr1 + (lengthof arr1 - 1) * type arr1
 	mov edi, offset arr2
 	mov ecx, lengthof arr1
 	L1:
