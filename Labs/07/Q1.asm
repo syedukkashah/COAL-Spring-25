@@ -1,61 +1,30 @@
-INCLUDE Irvine32.inc
+Include Irvine32.inc
 
 .data
-    sourceArray DWORD 10, 20, 30, 40, 50, 60, 70, 80, 90, 100  ; Array of 10 integers
-    destinationArray DWORD 10 DUP (?)  ; Empty array of 10 integers
-    msg1 BYTE "Source Array:", 0
-    msg2 BYTE "Destination Array:", 0
-
+	arr1 word  11,21,31,41,51,61,71,81,91,110
+	arr2 word  lengthof arr1 dup(?)
 .code
-main:
-    ; Init stack
-    lea eax, sourceArray   
+	main proc
+	mov ecx, lengthof arr1
+	mov esi, offset arr1
+	mov edi, offset arr2
 
-   
-    mov edx, OFFSET msg1
-    call WriteString
+	L1:
+		push [esi]
+		pop [edi]
+		add esi, type arr1
+		add edi, type arr2
+		loop L1
 
-   
-    call PrintArray
+	mov esi, offset arr2
+	mov ecx, lengthof arr2
+	L2:
+		movzx eax, word ptr [esi]
+		add esi, type arr2
+		call WriteDec
+		call Crlf
+		loop L2
+	exit 
 
-    
-    mov ecx, 10            
-push_loop:
-    mov eax, [eax]         
-    push eax               
-    add eax, 4             
-    loop push_loop         
-
-    ; Display message "Destination Array"
-    mov edx, OFFSET msg2
-    call WriteString
-
-   
-    lea eax, destinationArray 
-    mov ecx, 10           
-pop_loop:
-    pop eax                
-    mov [eax], eax         
-    add eax, 4            
-    loop pop_loop          
-
-    
-    call PrintArray
-
-   
-    exit
-
-PrintArray PROC
-   
-    lea eax, destinationArray
-    mov ecx, 10
-print_loop:
-    mov edx, [eax]
-    call WriteInt          
-    call Crlf            
-    add eax, 4            
-    loop print_loop
-    ret
-PrintArray ENDP
-
-END main
+main endp
+end main
