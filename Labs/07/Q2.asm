@@ -1,46 +1,23 @@
-INCLUDE Irvine32.inc
-
+include Irvine32.inc
 .data
-    prompt1  BYTE "Enter the first integer: ", 0
-    prompt2  BYTE "Enter the second integer: ", 0
-    prompt3  BYTE "Enter the third integer: ", 0
-    resultMsg BYTE "The sum is: ", 0
-
+	num1 dword 1
+	num2 dword 2
+	num3 dword 3
 .code
-main:
-   
-    mov edx, OFFSET prompt1
-    call WriteString
-    call ReadInt
-    push eax         
+	main proc
+	
+	push num1
+	push num2
+	push num3
+	
+	pop eax
+	pop ebx
+	pop ecx
+	
+	add eax, ebx
+	add eax, ecx
+	call WriteDec
+	exit 
 
-    
-    mov edx, OFFSET prompt2
-    call WriteString
-    call ReadInt
-    push eax        
-
-   
-    mov edx, OFFSET prompt3
-    call WriteString
-    call ReadInt
-    push eax         
-
-    
-    pop eax           
-    mov ebx, eax      
-
-    pop eax          
-    add eax, ebx      
-
-    pop ebx           
-    add eax, ebx      
-
-    
-    mov edx, OFFSET resultMsg
-    call WriteString
-    call WriteInt     
-
-    
-    exit
+main endp
 end main
