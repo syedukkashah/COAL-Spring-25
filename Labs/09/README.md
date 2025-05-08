@@ -1,4 +1,4 @@
-'''assembly
+``` assembly
 INCLUDE Irvine32.inc
 
 .data
@@ -27,4 +27,4 @@ main PROC
     exit
 main ENDP
 END main
-    '''
+    ```
