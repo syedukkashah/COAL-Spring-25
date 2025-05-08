@@ -34,7 +34,8 @@ END main
 ### Q2
 
 
-``` assembly
+```
+assembly
 INCLUDE Irvine32.inc
 
 .code
@@ -188,8 +189,6 @@ main PROC
     exit
 main ENDP
 END main
-
 ```
-
 ![image](https://github.com/user-attachments/assets/ad5f807a-ffd5-4a40-b128-416fed3c4b30)
 
