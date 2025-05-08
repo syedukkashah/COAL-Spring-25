@@ -1,4 +1,4 @@
-'''assemebly
+'''assembly
 INCLUDE Irvine32.inc
 
 .data
