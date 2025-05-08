@@ -34,8 +34,7 @@ END main
 ### Q2
 
 
-```
-assembly
+``` assembly
 INCLUDE Irvine32.inc
 
 .code
@@ -67,8 +66,7 @@ END main
 ![image](https://github.com/user-attachments/assets/6a72ccd7-70cf-4af1-b66f-e2109f441294)
 
 ### Q3
-```
-assembly
+``` assembly
 INCLUDE Irvine32.inc
 
 .data
@@ -103,8 +101,7 @@ END main
 ![image](https://github.com/user-attachments/assets/ef87b21d-fa0c-4c00-b7dd-0b52cc451530)
 
 ### Q4
-```
-assembly
+``` assembly
 
 INCLUDE Irvine32.inc
 
@@ -146,8 +143,7 @@ END main
 
 ### Q5
 
-```
-assembly
+``` assembly
 INCLUDE Irvine32.inc
 
 .data
