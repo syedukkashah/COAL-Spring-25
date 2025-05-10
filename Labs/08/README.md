@@ -47,6 +47,10 @@ main ENDP
 END main
 ```
 
+![image](https://github.com/user-attachments/assets/3f1df5c8-89c2-4f97-aa39-a434b3ac54a0)
+![image](https://github.com/user-attachments/assets/62b45192-8e45-4cc4-a488-12499dd09b3c)
+
+
 ### Q2
 ```asm
 
@@ -81,6 +85,9 @@ Exit:
 main ENDP
 END main
 ```
+![image](https://github.com/user-attachments/assets/8127a88a-17fc-4256-9c75-070ab37debc0)
+
+
 
 ### Q3
 ```asm
@@ -155,6 +162,11 @@ main ENDP
 END main
 ```
 
+
+![image](https://github.com/user-attachments/assets/84a93c1e-472f-4f89-a2a4-034da6cbdf7e)
+
+
+
 ### Q5
 ```asm
 
@@ -194,6 +206,10 @@ Display:
 main ENDP
 END main
 ```
+
+![image](https://github.com/user-attachments/assets/905aebdc-6fa0-4323-affa-7e0685337939)
+
+![image](https://github.com/user-attachments/assets/de89086e-cf7d-4967-8d28-8452c424d65e)
 
 ### Q6
 ```asm
@@ -243,6 +259,8 @@ main ENDP
 END main
 ```
 
+![image](https://github.com/user-attachments/assets/a397cec1-7cb3-4c31-b8b9-1776e057a3c7)
+
 ### Q7
 ```asm
 
@@ -282,6 +300,8 @@ Exit:
 main ENDP
 END main
 ```
+
+![image](https://github.com/user-attachments/assets/f9651e87-d561-45cc-92e2-25aec6714804)
 
 ### Q8
 ```asm
@@ -324,4 +344,8 @@ Display:
 main ENDP
 END main
 ```
+![image](https://github.com/user-attachments/assets/c76f963f-e56b-4015-be62-126a759e6288)
+
+![image](https://github.com/user-attachments/assets/bbf4ef04-0adb-4b79-821b-1fdf2d0f3a99)
+
 
