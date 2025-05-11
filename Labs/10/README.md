@@ -46,6 +46,7 @@ main PROC
 main ENDP
 END main
 ```
+![image](https://github.com/user-attachments/assets/ebade543-2015-402c-9444-ef1c8caf3f66)
 
 ### Q2
 ```asm
