@@ -32,6 +32,7 @@ main PROC
 main ENDP
 END main
 ```
+![image](https://github.com/user-attachments/assets/efb67b9c-72fd-4608-98a4-a86dd0e222b2)
 
 ### Q2
 ```asm
@@ -84,6 +85,7 @@ main PROC
 main ENDP
 END main
 ```
+![image](https://github.com/user-attachments/assets/27d1bfc3-7bea-496f-a4e3-3aaa5e03cace)
 
 ### Q3
 ```asm
@@ -109,6 +111,7 @@ main PROC
 main ENDP
 END main
 ```
+![image](https://github.com/user-attachments/assets/10c27bb2-7e9f-4e25-9dbf-211676d2a86e)
 
 ### Q4 
 ```asm
