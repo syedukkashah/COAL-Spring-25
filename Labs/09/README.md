@@ -115,99 +115,135 @@ END main
 
 ### Q4 
 ```asm
-.386
-.model flat, stdcall
-.stack 4096
 INCLUDE Irvine32.inc
 
 .data
-    nums DWORD 4 DUP(?)
-    allPrime BYTE 1
+    inputPrompt  BYTE "Enter number ",0
+    notAllPrime  BYTE "Not all numbers are prime.",0
+    largestMsg   BYTE "Largest prime number is: ",0
+    newline      BYTE 13, 10, 0
+
+    nums         DWORD 4 DUP(?)     
+    primeFlags   DWORD 4 DUP(?)     
 
 .code
+main PROC
+    mov ecx, 4            
+    mov esi, OFFSET nums  
+
+getInputs:
+    mov edx, OFFSET inputPrompt
+    call WriteString
+    call ReadInt
+    mov [esi], eax
+    add esi, 4
+    loop getInputs
+
+  
+    mov ecx, 4
+    mov esi, OFFSET nums
+    mov edi, OFFSET primeFlags
+
+checkLoop:
+    mov eax, [esi]      
+    push eax            
+    call CheckPrime      
+    movzx eax, al       
+    mov [edi], eax       
+    add esi, 4
+    add edi, 4
+    loop checkLoop
+
+ 
+    mov ecx, 4
+    mov edi, OFFSET primeFlags
+
+checkAll:
+    mov eax, [edi]
+    cmp eax, 0
+    je notPrime
+    add edi, 4
+    loop checkAll
+
+    call LargestPrime
+    jmp done
+
+notPrime:
+    mov edx, OFFSET notAllPrime
+    call WriteString
+    call Crlf
+    jmp done
+
+done:
+    exit
+main ENDP
+
+
 CheckPrime PROC
-    push ebp
-    mov ebp, esp
-    mov eax, [ebp+8]
+    push ebx
+    push ecx
+    push edx
+
+    mov eax, [esp+12]   
     cmp eax, 2
-    jl NotPrime
-    mov ecx, 2
+    jl not_prime
+    cmp eax, 2
+    je is_prime
 
-TestLoop:
+    mov ecx, eax
+    shr ecx, 1          
+    mov ebx, 2
+
+check_div:
     mov edx, 0
-    div ecx
+    div ebx              
     cmp edx, 0
-    je NotPrime
-    inc ecx
-    mov eax, [ebp+8]
-    cmp ecx, eax
-    jl TestLoop
-    mov eax, 1
-    jmp Done
+    je not_prime
+    inc ebx
+    mov eax, [esp+12]    
+    cmp ebx, ecx
+    jle check_div
 
-NotPrime:
-    mov eax, 0
+is_prime:
+    mov al, 1
+    jmp done_check
 
-Done:
-    pop ebp
+not_prime:
+    mov al, 0
+
+done_check:
+    pop edx
+    pop ecx
+    pop ebx
     ret 4
 CheckPrime ENDP
 
 LargestPrime PROC
-    push ebp
-    mov ebp, esp
-    mov esi, [ebp+8]
-    mov ecx, 4
+    mov esi, OFFSET nums
     mov eax, [esi]
-
-FindMax:
-    cmp [esi], eax
-    jle Next
-    mov eax, [esi]
-Next:
     add esi, 4
-    loop FindMax
+    mov ecx, 3
+
+find_max:
+    mov ebx, [esi]
+    cmp ebx, eax
+    jle skip
+    mov eax, ebx
+skip:
+    add esi, 4
+    loop find_max
+
+    mov edx, OFFSET largestMsg
+    call WriteString
     call WriteInt
-    pop ebp
-    ret 4
+    call Crlf
+    ret
 LargestPrime ENDP
 
-main PROC
-    mov ecx, 4
-    mov esi, OFFSET nums
-
-InputLoop:
-    call ReadInt
-    mov [esi], eax
-    add esi, 4
-    loop InputLoop
-
-    mov ecx, 4
-    mov esi, OFFSET nums
-
-CheckLoop:
-    push [esi]
-    call CheckPrime
-    cmp eax, 0
-    je NotAllPrime
-    add esi, 4
-    loop CheckLoop
-    jmp AllPrime
-
-NotAllPrime:
-    mov allPrime, 0
-
-AllPrime:
-    cmp allPrime, 0
-    je Exit
-    push OFFSET nums
-    call LargestPrime
-
-Exit:
-    exit
-main ENDP
 END main
+
 ```
+![image](https://github.com/user-attachments/assets/b0f17d5d-fcaa-4d02-becb-d30cb4042fdd)
 
 ### Q5
 ```asm
