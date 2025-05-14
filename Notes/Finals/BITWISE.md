@@ -49,3 +49,32 @@ INCLUDE Irvine32.inc
 	end main
 ```
 ![image](https://github.com/user-attachments/assets/8ab149f0-4fc0-4301-aad3-7935d97d519e)
+
+
+```asm
+; XOR
+
+; 1 if bits are different, 0 if bits are same
+; XOR dest, source
+
+
+INCLUDE Irvine32.inc
+
+.code
+	main proc
+	mov eax, 0
+	mov al, 00111011b
+	call WriteBin
+	call Crlf
+	call DumpRegs
+	call Crlf
+	xor al, 00001111b 
+	call WriteBin
+	call Crlf
+	call DumpRegs
+	call Crlf
+	exit
+	main endp
+	end main
+```
+![image](https://github.com/user-attachments/assets/1bdf3f3d-75c4-4dd6-a815-b4738d308afa)
