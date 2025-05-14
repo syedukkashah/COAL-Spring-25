@@ -71,6 +71,7 @@ INCLUDE macros.inc
 	mov ax, wordVal ; al = 3
 	and ax, 1
 	jz EvenVal ;jump if ZF = 1
+	; however, and modifies ax -> to preserve val of ax and modify val of ax, we use test ax, 1
 	mWrite "odd integer"
 	jmp exitLabel
 	EvenVal:
