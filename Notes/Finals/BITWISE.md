@@ -1,5 +1,3 @@
-### and not or xor 
-
  ### these are bit wise operations
  ### ZF = 1 when result of an operation = 0
  ### SF = 1 if the dest operand is -ve, & SF = 0 if dest operand is +ve
