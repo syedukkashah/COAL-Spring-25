@@ -25,6 +25,27 @@ INCLUDE Irvine32.inc
 	main endp
 	end main
 ```
+``` asm
+INCLUDE Irvine32.inc
+
+.code
+	main proc
+
+	; application of and -> converting char in AL to uppercase 
+	; 🧠 Why it works:
+    ; Bit 5 (counting from 0) is the "case" bit.
+	; Lowercase letters have that bit set to 1.
+	;Uppercase letters have it cleared to 0.
+	; AND 0xDF forces that bit to 0 — converting to uppercase.
+
+	mov al, 'a' ; al = 01100001b
+	and al, 11011111b ; al = 01000001b 
+
+	exit
+	main endp
+	end main
+
+```
 ![image](https://github.com/user-attachments/assets/a8a89c31-3e81-419c-bbdd-cca2edccf9d0)
 
 
