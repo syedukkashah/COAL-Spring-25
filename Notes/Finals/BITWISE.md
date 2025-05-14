@@ -5,11 +5,9 @@
  ### PF = 1 when an instruction generates an even num of 1 bits in the low byte of the dest operand
  
  ### ACF = 1 when an operation produces a C out from bit 3 to bit 4
-
- NOT
 ```asm
 INCLUDE Irvine32.inc
-
+;  NOT
 .code
 	main proc
 	mov eax, 0
@@ -27,3 +25,27 @@ INCLUDE Irvine32.inc
 	main endp
 	end main
 ```
+
+```asm
+;AND
+
+INCLUDE Irvine32.inc
+
+.code
+	main proc
+	mov eax, 0
+	mov al, 00111011b
+	call WriteBin
+	call Crlf
+	call DumpRegs
+	call Crlf
+	and al, 00001111b ; and dest, source  
+	call WriteBin
+	call Crlf
+	call DumpRegs
+	call Crlf
+	exit
+	main endp
+	end main
+```
+![image](https://github.com/user-attachments/assets/8ab149f0-4fc0-4301-aad3-7935d97d519e)
