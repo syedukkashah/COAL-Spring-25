@@ -56,7 +56,9 @@ INCLUDE Irvine32.inc
 ```
 ![image](https://github.com/user-attachments/assets/8ab149f0-4fc0-4301-aad3-7935d97d519e)
 
-### HOW TO CHECK FOR EVEN NUMBERS
+
+### AND APPLICATIONS
+1) HOW TO CHECK FOR EVEN NUMBERS
 ```asm
 INCLUDE Irvine32.inc
 INCLUDE macros.inc 
@@ -84,6 +86,7 @@ INCLUDE macros.inc
 	end main
 
 ```
+2) converting lowercase chars to uppercase
 ``` asm
 INCLUDE Irvine32.inc
 
@@ -152,3 +155,30 @@ INCLUDE Irvine32.inc
 	end main
 ```
 ![image](https://github.com/user-attachments/assets/1bdf3f3d-75c4-4dd6-a815-b4738d308afa)
+
+### OR APPLICATION 
+```asm
+INCLUDE Irvine32.inc
+INCLUDE macros.inc 
+
+.data
+	wordVal word 3
+.code
+	main proc
+; JUMP TO A LABEL IF VAL ISN'T 0
+
+	mov ax, wordVal
+	or ax, ax
+	jnz isNotZero ;jump if not zero
+	mWrite "val is 0"
+	jmp exitLabel
+	isNotZero:
+		mWrite "val isn't 0"
+
+	exitLabel:
+		exit
+
+main endp
+end main
+
+```
