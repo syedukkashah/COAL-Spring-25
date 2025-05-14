@@ -25,6 +25,11 @@ INCLUDE Irvine32.inc
 	main endp
 	end main
 ```
+![image](https://github.com/user-attachments/assets/a8a89c31-3e81-419c-bbdd-cca2edccf9d0)
+
+
+
+
 
 ```asm
 ;AND
