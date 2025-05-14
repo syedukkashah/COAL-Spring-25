@@ -55,6 +55,34 @@ INCLUDE Irvine32.inc
 	end main
 ```
 ![image](https://github.com/user-attachments/assets/8ab149f0-4fc0-4301-aad3-7935d97d519e)
+
+### HOW TO CHECK FOR EVEN NUMBERS
+```asm
+INCLUDE Irvine32.inc
+INCLUDE macros.inc 
+
+.data
+	wordVal word 3
+.code
+
+; JUMP TO A LABEL IF AN INT IS EVEN
+
+	main proc
+	mov ax, wordVal ; al = 3
+	and ax, 1
+	jz EvenVal ;jump if ZF = 1
+	mWrite "odd integer"
+	jmp exitLabel
+	EvenVal:
+		mWrite "even integer"
+
+	exitLabel:
+		exit
+
+	main endp
+	end main
+
+```
 ``` asm
 INCLUDE Irvine32.inc
 
