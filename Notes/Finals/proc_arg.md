@@ -185,3 +185,102 @@ call SomeFunction
 4. Never use `OFFSET` with stack-based variables (locals or parameters)
 
 Remember: `ADDR` is essentially MASM's safer, higher-level alternative to `LEA` when using `INVOKE`, while `OFFSET` is only for compile-time-known addresses.
+
+
+
+### **1. `ADDR`**
+- **Only works with `INVOKE`**  
+  ```asm
+  invoke func2, ADDR var  ; Correct (MASM auto-converts to LEA)
+  ```
+- **Cannot be used in regular instructions**  
+  ```asm
+  mov eax, ADDR var       ; ERROR: ADDR only valid with INVOKE
+  ```
+
+### **2. `OFFSET`**
+- **Only for global variables** (compile-time known addresses)  
+  ```asm
+  .data
+  globalVar DWORD ?
+  .code
+      mov esi, OFFSET globalVar  ; Correct
+  ```
+- **Fails on locals** (stack addresses aren't known at assembly time)  
+  ```asm
+  LOCAL var:DWORD
+  mov eax, OFFSET var    ; ERROR: Cannot use OFFSET with locals
+  ```
+
+### **3. `LEA` (Best Fit for Manual Address Loading)**
+- **Works everywhere** (locals, globals, parameters)  
+  ```asm
+  LOCAL var:BYTE
+  lea esi, var           ; Correct: Loads address at runtime
+  ```
+- **Required when not using `INVOKE`**  
+  ```asm
+  push eax
+  call func2             ; Must use LEA if passing addresses manually
+  ```
+
+---
+
+### **Fixed Version of Your Code (Using `LEA`)**
+```asm
+INCLUDE Irvine32.inc
+
+.code
+    func2 PROC, x:PTR BYTE 
+        mov  esi, x           ; Load address
+        movzx eax, BYTE PTR [esi]  ; Read byte safely
+        call WriteDec
+        ret
+    func2 ENDP
+        
+    func1 PROC
+        LOCAL var:BYTE        ; 1-byte local variable
+        mov var, 5           ; Store value
+        
+        ; OPTION 1: Use LEA (best for manual calls)
+        lea eax, var         ; Get address
+        push eax             ; Pass address
+        call func2           ; Call function
+        
+        ; OPTION 2: Use INVOKE+ADDR (cleaner, but requires INVOKE)
+        ; invoke func2, ADDR var
+        
+        ret
+    func1 ENDP
+
+    main PROC
+        call func1
+        exit
+    main ENDP
+END main
+```
+
+---
+
+### **Key Takeaways**
+| Scenario               | Solution         | Why? |
+|------------------------|------------------|------|
+| **Global variables**   | `OFFSET`         | Address known at compile-time |
+| **Locals with `INVOKE`** | `ADDR`        | MASM converts to `LEA` automatically |
+| **Locals without `INVOKE`** | `LEA`   | Must calculate runtime stack address |
+| **Dynamic addressing** | `LEA`            | Supports complex address calculations |
+
+---
+
+### **When to Prefer Each**
+1. **Use `LEA`** when:
+   - Writing manual `call`/`push` sequences  
+   - Needing complex address math (e.g., `[ebx+esi*4+8]`)  
+
+2. **Use `ADDR`** when:
+   - Using `INVOKE` for cleaner code  
+
+3. **Use `OFFSET`** when:
+   - Working with globals in direct `mov` instructions  
+
+Your original code needed `LEA` because it wasn't using `INVOKE`. Either approach (`LEA` or `ADDR`+`INVOKE`) is correct—just stay consistent!
