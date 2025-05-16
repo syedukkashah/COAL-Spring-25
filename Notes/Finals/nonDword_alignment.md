@@ -534,5 +534,3 @@ call Crlf
   - WORD: 2-byte boundary (996 is fine).
   - DWORD: 4-byte boundary (992 is fine).
 - **Visualization**: Shows each byte to clarify memory layout, but multi-byte values (DWORD, WORD) are single values spread across multiple addresses.
-
-If you’d like a different visualization style, want to experiment with a different stack layout, or have questions about little-endian storage or debugging this in a tool like Visual Studio, let me know!
