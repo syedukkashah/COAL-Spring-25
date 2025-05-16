@@ -10,7 +10,7 @@ INCLUDE Irvine32.inc
 		push ebp
 		mov ebp, esp
 		sub esp, 8
-		mov byte ptr [ebp-1], 3 ;specify data type by using ptr when dealing with pointers
+		mov byte ptr [ebp-1], 3 ; specify data type by using ptr when dealing with pointers
 		mov word ptr [ebp - 4], 4
 		mov dword ptr [ebp - 8], 5
 		movzx eax, byte ptr [ebp-1] ; masm doens't remeber data type for later instruction so specify again and zero extend for correct output (or mov al, byte ptr [ebp-1])
