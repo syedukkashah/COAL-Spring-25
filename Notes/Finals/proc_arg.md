@@ -29,3 +29,30 @@ main ENDP
 
 END main
 ```
+### When local var isn't of dword type
+
+```asm
+INCLUDE Irvine32.inc
+
+.code
+	func2 proc, x: ptr byte 
+		mov esi, x ; load address into esi 
+		movzx eax, byte ptr [esi]
+		call WriteDec
+		call Crlf
+		ret
+	func2 endp
+		
+	func1 proc
+		local var:byte
+		mov var, 5
+		invoke func2, addr var 
+		ret
+	func1 endp
+
+	main proc
+	call func1
+	exit
+	main endp
+	end main
+```
