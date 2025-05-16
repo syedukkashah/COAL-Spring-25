@@ -24,9 +24,6 @@ main PROC
     call ProcWithLocalVar
     exit
 main ENDP
-
-
-
 END main
 ```
 ### When local var isn't of dword type
@@ -47,6 +44,35 @@ INCLUDE Irvine32.inc
 		local var:byte
 		mov var, 5
 		invoke func2, addr var 
+		ret
+	func1 endp
+
+	main proc
+	call func1
+	exit
+	main endp
+	END main
+```
+### using enter and leave 
+
+```asm
+INCLUDE Irvine32.inc
+
+.code
+	func2 proc, x: ptr byte 
+		mov esi, x ; load address into esi 
+		movzx eax, byte ptr [esi]
+		call WriteDec
+		call Crlf
+		ret
+	func2 endp
+		
+	func1 proc
+		enter 4, 0
+		mov byte ptr [ebp-1], 5
+		lea edx, [ebp-1] ; lea used for getting address of local var
+		invoke func2, edx
+		leave
 		ret
 	func1 endp
 
