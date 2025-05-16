@@ -4,9 +4,9 @@ include Irvine32.inc
 
 .code
 PrintValue PROC, pValue:PTR DWORD
-    push eax
-    mov eax, pValue
-    mov eax, [eax]
+    push eax ; push eax to save current value
+    mov eax, pValue  ; retrieve address 
+    mov eax, [eax] ; de reference address to get value 
     call WriteDec
     call Crlf
     pop eax
@@ -14,9 +14,9 @@ PrintValue PROC, pValue:PTR DWORD
 PrintValue ENDP
 
 ProcWithLocalVar PROC
-    LOCAL localVar:DWORD
-    mov localVar, 42
-    INVOKE PrintValue, ADDR localVar
+    LOCAL localVar:DWORD ; define a local variable of dword type
+    mov localVar, 42 
+    INVOKE PrintValue, ADDR localVar ; pass address of local var as argument
     ret
 ProcWithLocalVar ENDP
 
