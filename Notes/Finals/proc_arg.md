@@ -1,5 +1,4 @@
-### Write a program that defines a global DWORD variable in the .data section, creates a procedure to print its value using WriteDec, 
-### and calls the procedure from main using INVOKE. Use ADDR to pass the variable’s address.
+### Write a program that defines a global DWORD variable in the .data section, creates a procedure to print its value using WriteDec, and calls the procedure from main using INVOKE. Use ADDR to pass the variable’s address.
 ```asm
 include Irvine32.inc
 
