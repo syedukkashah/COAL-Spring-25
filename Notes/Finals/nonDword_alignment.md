@@ -27,7 +27,7 @@ INCLUDE Irvine32.inc
 	myFunc endp
 	end main
 ```
-You're absolutely correct about the alignment requirements for BYTE, WORD, and DWORD variables in x86 assembly:
+
 
 - **BYTE (1 byte)**: No alignment needed; can be placed at any memory address.
 - **WORD (2 bytes)**: Should be aligned to a 2-byte boundary (address divisible by 2).
