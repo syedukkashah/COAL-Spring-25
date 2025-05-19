@@ -165,3 +165,33 @@ exit
 main endp
 end main
 ```
+
+```asm
+INCLUDE Irvine32.inc
+.data
+    source BYTE "MARTIN  "
+    dest BYTE "MARTINEZ"
+    str1 BYTE "Source is smaller",0dh,0ah,0
+    str2 BYTE "Source is not smaller",0dh,0ah,0
+.code
+main proc
+    cld
+    mov esi, offset source
+    mov edi, offset dest
+    mov ecx, lengthof source
+    repe cmpsb ; checks chars by idx (ascii), compares byte by byte untill mismatch
+    jb source_smaller
+    mov edx, offset str2
+    call WriteString 
+    call Crlf
+    jmp exit_label
+    source_smaller:
+         mov edx, offset str1
+        call WriteString 
+        call Crlf
+    exit_label:
+        exit
+   
+main endp
+end main
+```
