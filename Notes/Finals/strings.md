@@ -342,3 +342,60 @@ end main
 - This adjustment is necessary if the program or caller needs the exact position of the found character, even though your program exits immediately.
 - Your understanding is spot-on: `dec edi` is there because `repne scasb` increments `EDI` even when it finds the match.
 
+
+### STOSB, STOSW, STOSD
+```asm
+;The stosb, stosw, and stosd instructions differ in the size of the data they store:
+
+;stosb: Stores a byte (8 bits, 1 byte at a time ) from AL, increments EDI by 1.
+;stosw: Stores a word (16 bits, 2 bytes at a time) from AX, increments EDI by 2.
+;stosd: Stores a doubleword (32 bits, 4 bytes at a time) from EAX, increments EDI by 4.
+
+;to use stosw or stosd, you need to adjust:
+
+;The source register (AL → AX or EAX).
+;The value to store (byte → word or doubleword).
+;The array size and ECX (to account for larger elements).
+;The interpretation of the output (since WriteString expects bytes).
+
+INCLUDE Irvine32.inc
+.data
+    count = 100
+    strB byte count dup(?), 0
+    strW word count dup(?), 0
+    strD dword count dup(?), 0
+.code
+main proc
+    mov al, "s" ; val to be stored
+    mov edi, offset strB ; storing address of string into edi
+    mov ecx, count ; init ecx to length of str
+    cld ; df = 0 -> forward direction
+    rep stosb ; fill with contents of al (store string byte) 
+
+    mov edx, offset strB
+    call WriteString
+    call Crlf
+
+    mov ax, "hh" ;since stosw write 2 bytes at a time, we must ensure both bytes in ax contain h to avoid terminator in str (h0h0h0...)
+    mov edi, offset strW
+    mov ecx, count/2 ;two bytes written 50 times  = 100 words
+    cld
+    rep stosw
+
+    mov edx, offset strW
+    call WriteString 
+    call Crlf
+
+    mov eax, "aaaa"
+    mov edi, offset strD
+    mov ecx, count/4
+    cld
+    rep stosd
+
+    mov edx, offset strD
+    call WriteString
+    call Crlf
+    exit
+main endp
+end main
+```
