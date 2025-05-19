@@ -500,3 +500,40 @@ main proc
 main endp
 end main
 ```
+
+
+### Compare two strings "TestCase",0 and "TestCade",0 using CMPSB. Print "Strings are equal" if they match, or "Strings differ at position X" where X is the 1-based position of the first mismatch.
+
+```asm
+INCLUDE Irvine32.inc
+.data
+    str1 byte "TestCase", 0
+    str2 byte "TestCade", 0
+    msg byte "strings differ at index: ", 0
+    msg2 byte "strings are equal", 0
+.code
+main proc
+    mov esi ,offset str1
+    mov edi ,offset str2
+    mov ecx, lengthof str1
+    cld
+    repe cmpsb
+    jz equal
+    mov edx, offset msg
+    call WriteString
+    ; we can calculate what position the mismatch occured at by subtracting the remaining ecx from the length of the array
+    mov eax, lengthof str1
+    sub eax, ecx
+    dec eax ;even though mismatch was found, cmpsb will still increment 
+   call WriteDec
+   call Crlf
+   jmp exitLabel
+    equal:
+        mov edx, offset msg2
+        call WriteString
+        call Crlf
+    exitLabel:
+        exit
+main endp
+end main
+```
