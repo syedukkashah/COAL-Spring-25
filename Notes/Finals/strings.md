@@ -85,7 +85,34 @@ main PROC
 main ENDP
 END main
 ```
+### Moving indexes to the left to delete first index
 
+```asm
+INCLUDE Irvine32.inc
+.data
+	array DWORD 1,1,2,3,4,5,6,7,8,9,10
+.code
+	main proc
+    cld ; df = 0 (forward direction, so esi++, edi++ by movsb)
+	mov esi, offset array + type array ;source is one index ahead of target
+	mov edi, offset array ; target is current idx starting from 0th
+	mov ecx, lengthof array - 1
+	rep movsd
+
+	
+	mov esi, offset array
+	mov ecx, lengthof array - 1
+	printArr:
+		mov eax, dword ptr [esi]
+		call WriteDec
+		call Crlf
+		add esi, type array
+		loop printArr
+
+	exit
+main endp
+end main
+```
 ### **Key Takeaways**
 1. **Direction Flag (`CLD`/`STD`)** controls whether ESI/EDI increment or decrement.
 2. **`MOVSB`/`MOVSW`/`MOVSD`** copy different data sizes (1, 2, or 4 bytes at a time).
