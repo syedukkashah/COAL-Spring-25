@@ -85,6 +85,13 @@ main PROC
 main ENDP
 END main
 ```
+
+### **Key Takeaways**
+1. **Direction Flag (`CLD`/`STD`)** controls whether ESI/EDI increment or decrement.
+2. **`MOVSB`/`MOVSW`/`MOVSD`** copy different data sizes (1, 2, or 4 bytes at a time).
+3. **`REP` is faster than `LOOP`** for string operations because it’s hardware-optimized.
+4. **`MOVSW`/`MOVSD` can copy byte strings**, but must ensure alignment and correct length.
+
 ### Moving indexes to the left to delete first index
 
 ```asm
@@ -113,8 +120,3 @@ INCLUDE Irvine32.inc
 main endp
 end main
 ```
-### **Key Takeaways**
-1. **Direction Flag (`CLD`/`STD`)** controls whether ESI/EDI increment or decrement.
-2. **`MOVSB`/`MOVSW`/`MOVSD`** copy different data sizes (1, 2, or 4 bytes at a time).
-3. **`REP` is faster than `LOOP`** for string operations because it’s hardware-optimized.
-4. **`MOVSW`/`MOVSD` can copy byte strings**, but must ensure alignment and correct length.
