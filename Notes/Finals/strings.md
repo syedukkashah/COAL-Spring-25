@@ -524,7 +524,7 @@ main proc
     ; we can calculate what position the mismatch occured at by subtracting the remaining ecx from the length of the array
     mov eax, lengthof str1
     sub eax, ecx
-    dec eax ;even though mismatch was found, cmpsb will still increment 
+    dec eax ;even though mismatch was found, cmpsb will still increment esi and edi (idx= 7 so we dec to go back 1 idx)
    call WriteDec
    call Crlf
    jmp exitLabel
