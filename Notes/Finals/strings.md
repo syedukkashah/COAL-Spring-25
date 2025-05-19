@@ -120,3 +120,28 @@ INCLUDE Irvine32.inc
 main endp
 end main
 ```
+
+```asm
+INCLUDE Irvine32.inc
+.data
+    source word 1234h
+    target word 5678h
+    msg1 byte "Source > Target",0
+    msg2 byte "Source <= Target",0
+.code
+main proc
+    mov esi, offset source
+    mov edi, offset target
+    cmpsw            ; Compare source and target
+    ja L1            ; Jump if source > target (unsigned)
+    mov edx, offset msg2
+    call WriteString ; Print "Source <= Target"
+    jmp exit_prog
+L1:
+    mov edx, offset msg1
+    call WriteString ; Print "Source > Target"
+exit_prog:
+    exit
+main endp
+end main
+```
