@@ -145,3 +145,23 @@ exit_prog:
 main endp
 end main
 ```
+
+```asm
+INCLUDE Irvine32.inc
+.data
+    count = 20
+    source dword count dup (?)
+    target dword count dup (?)
+.code
+main proc
+    mov ecx, count
+    mov esi, offset source
+    mov edi, offset target
+    cld ; DF = 0, direction = forward
+    repe cmpsd ; repeat while equal -> while esi - edi = 0 -> while zf = 0 
+
+    ; this is basically what we do in a normal loop, comparing two elements and checking with the jmp cond (jz)
+exit
+main endp
+end main
+```
