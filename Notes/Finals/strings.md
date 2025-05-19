@@ -537,3 +537,159 @@ main proc
 main endp
 end main
 ```
+
+### Copy the string "abcde",0 to a destination array, converting each character to uppercase (e.g., 'a' → 'A') using LODSB and STOSB. Print the result with WriteString.
+
+```asm
+INCLUDE Irvine32.inc
+.data
+    str1 byte "abcde",0
+    str2 byte lengthof str1 dup(?)
+.code
+main proc
+    mov esi ,offset str1
+    mov edi ,offset str2
+    mov ecx, lengthof str1 - 1
+    cld
+    L1:
+        lodsb
+        sub eax, 32
+        stosb
+     loop L1
+     mov str2[lengthof str2 - 1], 0
+    mov edx ,offset str2
+    call WriteString
+        exit
+main endp
+end main
+```
+
+
+
+### Copy an array of 5 doublewords [10, 20, 30, 40, 50] to a destination array in reverse order using MOVSD with std. Print the destination array using WriteDec.
+
+```asm
+INCLUDE Irvine32.inc
+.data
+    arr1 dword 10,20,30,40,50
+    arr2 dword lengthof arr1 dup(?)
+.code
+    main proc
+    mov esi ,offset arr1+(lengthof arr1 - 1)* type arr1
+    mov edi ,offset arr2+(lengthof arr2 - 1)* type arr2
+    mov ecx, lengthof arr1
+    std
+    rep movsd
+    mov esi ,offset arr2
+    mov ecx, lengthof arr2
+    L1:
+    mov eax, dword ptr [esi]
+    call WriteDec
+    call Crlf
+    add esi, type arr2
+    loop L1
+        exit
+main endp
+end main
+```
+
+
+
+### Create two arrays of 10 doublewords. Fill the first with 5555h using STOSD, and the second with 5555h for the first 9 elements and 6666h for the last using STOSD. Use CMPSD to find the first mismatch, then use LODSW and STOSW to copy the remaining elements from the first array to a third array. Print the third array.
+
+```asm
+INCLUDE Irvine32.inc
+.data
+    arr1 dword 10 dup(?)
+    arr2 dword 10 dup(?)
+    arr3 dword 10 dup(?)
+    msg1 byte "array1: ", 0
+    msg2 byte "array2: ", 0
+    msg3 byte "mismatch found at position: ", 0
+    msg4 byte "both arrays are equal", 0
+    msg5 byte "array3: ", 0
+.code
+
+    printArr proc uses eax esi ecx, arr:ptr dword, arrLen: dword
+    mov esi, arr
+    mov ecx, arrLen
+    L1:
+        mov eax, dword ptr [esi]
+        call WriteHex
+        call Crlf
+        add esi, type arr
+    loop L1
+    ret
+    printArr endp
+
+    main proc
+    mov eax, 5555h
+    mov ecx, lengthof arr1
+    mov edi, offset arr1
+    cld
+    rep stosd
+
+    mov edx, offset msg1
+    call WriteString
+    call Crlf
+    invoke printArr, offset arr1, lengthof arr1
+
+    mov eax, 5555h
+    mov ecx, lengthof arr2 - 1
+    mov edi, offset arr2
+    cld
+    rep stosd
+
+    mov eax, 6666h
+    mov edi, offset arr2 + (lengthof arr2 - 1)*type arr2
+    cld
+    stosd
+
+    call Crlf
+    mov edx, offset msg2
+    call WriteString
+    call Crlf
+
+    invoke printArr, offset arr2, lengthof arr2
+
+    mov esi, offset arr1
+    mov edi, offset arr2
+    cld
+    mov ecx, lengthof arr1
+    repe cmpsd
+    jnz notEqual
+    mov edx, offset msg4
+    call WriteString
+    call Crlf
+    jmp exitLabel
+    notEqual:
+        mov eax, lengthof arr1
+        sub eax, ecx
+        dec eax
+        mov edx, offset msg3
+        call Crlf
+        call WriteString
+        call WriteDec
+    copyArr:
+       mov esi, offset arr1
+       mov edi, offset arr3
+       mov ecx, lengthof arr1
+       cld
+       L1:
+       lodsd
+       stosd
+       loop L1
+
+       call Crlf
+       mov edx, offset msg5
+       call WriteString
+       call Crlf
+       
+   
+
+       invoke printArr, offset arr3, lengthof arr3
+       exitLabel:
+        exit
+main endp
+end main
+```
