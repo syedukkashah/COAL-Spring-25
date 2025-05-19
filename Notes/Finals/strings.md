@@ -470,3 +470,33 @@ main proc
 main endp
 end main
 ```
+### Search for the character 'L' in the string "HelloWorld",0 using SCASB. If found, print its 0-based position (e.g., 3 for the first 'L'). If not found, print "Not found".
+```asm
+INCLUDE Irvine32.inc
+.data
+    str1 byte "HelloWorld", 0
+    msg byte "not found"
+.code
+main proc
+    mov edi ,offset str1
+    mov esi, 0
+    mov ecx, lengthof str1
+    mov al, 'l'
+    cld
+    repne scasb
+    jnz NF 
+    ; we can calculate what position the letter was founf at by subtracting the remaining ecx from the length of the array
+    mov eax, lengthof str1
+    sub eax, ecx
+   call WriteDec
+   call Crlf
+   jmp exitLabel
+    NF:
+        mov edx, offset msg
+        call WriteString
+        call Crlf
+    exitLabel:
+        exit
+main endp
+end main
+```
