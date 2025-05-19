@@ -437,3 +437,36 @@ main proc
 main endp
 end main
 ```
+
+### Write a program that converts each unpacked binary-coded decimal byte belonging to an array into an ASCII decimal byte and copies it to a new array.
+
+```asm
+INCLUDE Irvine32.inc
+.data
+    array byte 1,2,3,4,5,6,7,8,9
+    dest byte lengthof array dup(?)
+.code
+main proc
+    mov ecx, lengthof array
+    cld ; df = 0, forward direction (LR)
+    mov esi, offset array
+    mov edi, offset dest
+    l1:
+    lodsb ; loads [esi] to eax
+    or al, 00110000b ;converting decimal to eqivalent ascii val
+    stosb ; storing eax in [edi]
+    loop l1
+    
+    mov ecx, lengthof dest
+    mov esi, offset dest
+    mov eax, 0
+    printLoop:
+    mov al, byte ptr[esi]
+    call WriteDec
+    call Crlf
+    add esi, type dest
+    loop printLoop
+    exit
+main endp
+end main
+```
