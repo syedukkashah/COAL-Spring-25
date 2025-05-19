@@ -399,3 +399,41 @@ main proc
 main endp
 end main
 ```
+### LODSB, LODSW, LODSD
+
+```asm
+; lodsb, lodsw, lodsd loads a byte/word/dword from memory at esi into al,ax,eax
+; rep prefix is barely used with lods because each new val loaded into the accumulator overwrites it's previous contents
+; instead, lods is used to load a single val
+
+INCLUDE Irvine32.inc
+.data
+    array dword 1,2,3,4,5,6,7,8,9,10 ; test data
+    multiplier dword 10 ; test data
+    multiplierW word 10
+    arrayW word 1,2,3,4,5,6,7,9,10
+.code
+main proc
+
+    cld
+    mov esi, offset array
+    mov edi, esi
+    mov ecx, lengthof array
+    L1: lodsd ; load [esi] into eax
+    mul multiplier ; multiply by a value
+    stosd ; store eax into [edi]
+    loop L1
+
+    cld
+    mov esi, offset arrayW
+    mov edi, esi
+    mov ecx, lengthof arrayW
+    L2:
+    lodsw; load val from [esi] to eax
+    mul multiplierW ; ax*=10
+    stosw ; store val at ax to [edi]
+    loop L2
+    exit
+main endp
+end main
+```
